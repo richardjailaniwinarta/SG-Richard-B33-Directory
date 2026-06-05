@@ -1117,9 +1117,9 @@ function renderSchedule(filtered) {
         </div>
 
         <div class="card-detail">
-          ${task.reference ? `<div class="detail-section">
+          ${task.remark ? `<div class="detail-section">
             <div class="detail-label">Remark</div> 
-            <span style="cursor: default; white-space: pre-line; text-align: left; display: inline-block; width: 100%;">📌 ${task.reference}</span>
+            <span style="cursor: default; white-space: pre-line; text-align: left; display: inline-block; width: 100%;">📌 ${task.remark}</span>
           </div>` : ''}
 
           ${task.recording ? `<div class="detail-section">
