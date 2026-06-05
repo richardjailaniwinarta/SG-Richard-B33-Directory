@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B33 SG Richard — Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --surface: #111520;
+    --surface2: #171d2e;
+    --border: #1f2942;
+    --accent: #4f7fff;
+    --accent2: #7c5cfc;
+    --accent3: #00d4aa;
+    --text: #e8edf8;
+    --text-muted: #6e7fa8;
+    --text-dim: #3d4d70;
+    --week0: #ff7c5c;
+    --week1: #ffc85c;
+    --week2: #5cffb8;
+    --week3: #5cc8ff;
+    --week4: #b85cff;
+    --week5: #ff5cad;
+    --week6: #5cffff;
+    --week7: #ffff5c;
+    --course: #4f7fff;
+    --product: #7c5cfc;
+    --community: #00d4aa;
+    --sa: #ff7c5c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    padding: 48px 48px 36px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    background: linear-gradient(135deg, #0a0d14 0%, #111828 100%);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(79,127,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(79,127,255,0.1);
+    border: 1px solid rgba(79,127,255,0.25);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  h1 span { color: var(--accent); }
+  .header-sub {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 300;
+  }
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .meta-chip span {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .meta-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* LAYOUT */
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 180px);
+  }
+
+  /* SIDEBAR */
+  aside {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+  }
+  aside::-webkit-scrollbar { width: 4px; }
+  aside::-webkit-scrollbar-track { background: transparent; }
+  aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-section {
+    padding: 0 16px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .sidebar-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0 8px;
+    margin-bottom: 10px;
+  }
+
+  .week-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: left;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+  }
+  .week-btn:hover { background: var(--surface2); color: var(--text); }
+  .week-btn.active { background: var(--surface2); color: var(--text); }
+  .week-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .week-count {
+    margin-left: auto;
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .week-btn.active .week-count { background: rgba(79,127,255,0.15); color: var(--accent); }
+
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-align: left;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+  }
+  .filter-btn:hover { background: var(--surface2); color: var(--text); }
+  .filter-btn.active { background: var(--surface2); color: var(--text); }
+  .dept-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* TABS */
+  .tab-area {
+    display: flex;
+    flex-direction: column;
+  }
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .tab-btn {
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.15s;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* SEARCH */
+  .search-bar {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .search-input-wrap {
+    position: relative;
+    max-width: 480px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+  #searchInput {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px 10px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #searchInput:focus { border-color: var(--accent); }
+  #searchInput::placeholder { color: var(--text-dim); }
+
+  /* MAIN CONTENT */
+  .content {
+    padding: 28px 32px;
+    overflow-y: auto;
+  }
+
+  /* ---- TAB: SCHEDULE ---- */
+  .week-section { margin-bottom: 40px; }
+  .week-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .week-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .week-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .week-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* TASK CARDS */
+  .task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+  }
+  .task-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .task-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.18s;
+  }
+  .task-card:hover { border-color: rgba(79,127,255,0.35); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .task-card:hover::before { opacity: 1; }
+  .task-card.expanded { border-color: rgba(79,127,255,0.4); background: var(--surface2); }
+  .task-card.expanded::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .task-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .task-content {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .day-tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .day-tag svg { opacity: 0.5; }
+  .dept-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .time-tag {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .has-links-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--accent3);
+    background: rgba(0,212,170,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,212,170,0.2);
+  }
+  .has-updates-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--accent2);
+    background: rgba(124,92,252,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(124,92,252,0.2);
+  }
+
+  /* EXPANDED CARD DETAIL */
+  .card-detail {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .task-card.expanded .card-detail { display: block; }
+  .detail-section {
+    margin-bottom: 14px;
+  }
+  .detail-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 7px;
+  }
+  .detail-value {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .link-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .link-item:hover { border-color: var(--accent); }
+  .link-icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .link-text {
+    flex: 1;
+  }
+  .link-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    display: block;
+    line-height: 1.3;
+  }
+  .link-url {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: block;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 280px;
+  }
+  .link-arrow {
+    color: var(--text-dim);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .link-item:hover .link-name { color: var(--accent); }
+  .link-item:hover .link-arrow { color: var(--accent); }
+
+  .update-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    align-items: center;
+  }
+  .update-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ref-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 5px 11px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .ref-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  .recording-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(135deg, #ff4d4d, #ff7c5c);
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .recording-btn:hover { opacity: 0.85; }
+
+  /* ---- TAB: USEFUL LINKS ---- */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .link-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-decoration: none;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .link-card:hover { border-color: rgba(79,127,255,0.4); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+  .link-card-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .link-card-body { flex: 1; min-width: 0; }
+  .link-card-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .link-card-src {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .link-card-arrow { color: var(--text-dim); flex-shrink: 0; }
+  .link-card:hover .link-card-name { color: var(--accent); }
+  .link-card:hover .link-card-arrow { color: var(--accent); }
+
+  /* Link section groups */
+  .links-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .links-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ---- TAB: UPDATES ---- */
+  .updates-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .updates-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .updates-panel-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .updates-panel-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .updates-panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .update-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: background 0.15s;
+  }
+  .update-row:last-child { border-bottom: none; }
+  .update-row:hover { background: var(--surface2); }
+  .update-row-num {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .update-row-body { flex: 1; }
+  .update-row-task {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .update-row-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .update-row-week {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  /* ---- TAB: CHANGES LOG ---- */
+  .changelog-list { max-width: 680px; }
+  .changelog-item {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .changelog-item:last-child { border-bottom: none; }
+  .changelog-date {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 70px;
+    padding-top: 2px;
+  }
+  .changelog-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
+    box-shadow: 0 0 0 3px rgba(79,127,255,0.15);
+  }
+  .changelog-body { flex: 1; }
+  .changelog-task { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
+  .changelog-change { font-size: 14px; font-weight: 500; color: var(--text); }
+
+  /* Utilities */
+  .hidden { display: none !important; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .empty-state svg { margin-bottom: 12px; opacity: 0.3; }
+
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    aside { display: none; }
+    header { padding: 28px 20px 24px; }
+    .content { padding: 20px; }
+    .tab-bar { padding: 0 16px; overflow-x: auto; }
+    .task-grid { grid-template-columns: 1fr; }
+    .updates-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Scrollbar */
+  .content::-webkit-scrollbar { width: 5px; }
+  .content::-webkit-scrollbar-track { background: transparent; }
+  .content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+
+  /* Loading */
+  .loading-spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Small Group Richard Internal</div>
+  <h1>SG <span>B33</span> Directory</h1>
+  <p class="header-sub">Small Group Richard — Batch 33</p>
+  <div class="header-meta">
+  </div>
+</header>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filter by Week</div>
+      <button class="week-btn active" onclick="filterWeek('all')" id="btn-all">
+        <span class="week-dot" style="background:#4f7fff"></span>
+        All Weeks
+        <span class="week-count" id="cnt-all">2</span>
+      <button class="week-btn" onclick="filterWeek('Week 1')" id="btn-w1">
+        <span class="week-dot" style="background:var(--week1)"></span>
+        Week 1
+        <span class="week-count" id="cnt-w1">2</span>
+      </button>
+      <button class="week-btn" onclick="filterWeek('Week 2')" id="btn-w2">
+        <span class="week-dot" style="background:var(--week2)"></span>
+        Week 2
+        <span class="week-count" id="cnt-w2">0</span>
+      </button>
+      <button class="week-btn" onclick="filterWeek('Week 3')" id="btn-w3">
+        <span class="week-dot" style="background:var(--week3)"></span>
+        Week 3
+        <span class="week-count" id="cnt-w3">0</span>
+      </button>
+      <button class="week-btn" onclick="filterWeek('Week 4')" id="btn-w4">
+        <span class="week-dot" style="background:var(--week4)"></span>
+        Week 4
+        <span class="week-count" id="cnt-w4">0</span>
+      </button>
+      <button class="week-btn" onclick="filterWeek('Week 5')" id="btn-w5">
+        <span class="week-dot" style="background:var(--week5)"></span>
+        Week 5
+        <span class="week-count" id="cnt-w5">0</span>
+      </button>
+      <button class="week-btn" onclick="filterWeek('Week 6')" id="btn-w6">
+        <span class="week-dot" style="background:var(--week6)"></span>
+        Week 6
+        <span class="week-count" id="cnt-w6">0</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="tab-area">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('schedule')">📋 Home</button>
+      <button class="tab-btn" onclick="switchTab('links')">🔗 Useful Links</button>
+    </div>
+
+    <div class="search-bar" id="searchBar">
+      <div class="search-input-wrap">
+        <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search for File">
+      </div>
+    </div>
+
+    <!-- TAB: SCHEDULE -->
+    <div class="content" id="tab-schedule">
+      <div id="scheduleContent"></div>
+    </div>
+
+    <!-- TAB: USEFUL LINKS -->
+    <div class="content hidden" id="tab-links">
+      <div id="linksContent"></div>
+    </div>
+
+    <!-- TAB: UPDATES -->
+    <div class="content hidden" id="tab-updates">
+      <div class="updates-layout">
+        <div class="updates-panel">
+          <div class="updates-panel-header">
+            <div class="updates-panel-icon" style="background:rgba(124,92,252,0.15)">
+              <svg width="16" height="16" fill="none" stroke="#7c5cfc" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="updates-panel-title">Updates from Product Team</div>
+          </div>
+          <div id="productUpdatesContent"></div>
+        </div>
+        <div class="updates-panel">
+          <div class="updates-panel-header">
+            <div class="updates-panel-icon" style="background:rgba(0,212,170,0.15)">
+              <svg width="16" height="16" fill="none" stroke="#00d4aa" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="updates-panel-title">Updates from Other Dept</div>
+          </div>
+          <div id="otherUpdatesContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: CHANGELOG -->
+    <div class="content hidden" id="tab-changelog">
+      <div class="changelog-list" id="changelogContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ GOOGLE SHEETS CONFIG ============
+// Ganti SHEET_ID di bawah dengan ID Google Sheet Anda
+// Cara dapat ID: buka Google Sheet → lihat URL → salin bagian antara /d/ dan /edit
+// Contoh URL: https://docs.google.com/spreadsheets/d/1aBcDeFgHiJkLmNoPqRsTuVwXyZ/edit
+//                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ini ID-nya
+const SHEET_ID = '1pbBzM6vtocrwb0DdesVToPJ_L8coOiCCc-mAC_Tmnd4';
+const SHEET_NAME = 'Sheet2'; // Ganti jika nama sheet berbeda
+
+// URL untuk fetch data dari Google Sheets (CSV format)
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+
+let tasks = [];
+
+// ============ FETCH DATA FROM GOOGLE SHEETS ============
+async function loadData() {
+  // Tampilkan loading state
+  document.getElementById('scheduleContent').innerHTML = `
+    <div class="empty-state">
+      <div class="loading-spinner"></div>
+      <div style="margin-top:12px">Memuat data dari Google Sheets...</div>
+    </div>`;
+
+  try {
+    const res = await fetch(SHEET_URL);
+    if (!res.ok) throw new Error('Gagal mengambil data');
+    const csv = await res.text();
+    tasks = parseCSV(csv);
+    renderAll();
+  } catch (err) {
+    document.getElementById('scheduleContent').innerHTML = `
+      <div class="empty-state">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div style="color:#ff7c5c;font-weight:600;margin-top:8px">Gagal memuat data</div>
+        <div style="font-size:12px;margin-top:6px;max-width:400px">
+          Pastikan SHEET_ID sudah diisi dengan benar dan Google Sheet sudah dipublish.<br>
+          <a href="#" onclick="loadData()" style="color:var(--accent);text-decoration:none">🔄 Coba lagi</a>
+        </div>
+      </div>`;
+    console.error('Error loading Google Sheets:', err);
+  }
+}
+
+// ============ PARSE CSV ============
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  if (lines.length < 2) return [];
+
+  // Parse header row (baris pertama = nama kolom)
+  const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
+
+  const result = [];
+  for (let i = 1; i < lines.length; i++) {
+    const values = parseCSVLine(lines[i]);
+    if (values.every(v => !v.trim())) continue; // skip baris kosong
+    const row = {};
+    headers.forEach((h, idx) => {
+      row[h] = (values[idx] || '').trim();
+    });
+    // Pastikan field yang dibutuhkan ada
+    if (row.no || row.content) result.push(row);
+  }
+  return result;
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '', inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      result.push(cur); cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+function renderAll() {
+  renderSchedule(tasks);
+  renderLinks();
+  renderUpdates();
+  renderChangelog();
+  updateSidebarCounts();
+}
+
+function updateSidebarCounts() {
+  const weeks = ['Week 1','Week 2','Week 3','Week 4','Week 5','Week 6'];
+  const allCount = document.getElementById('cnt-all');
+  if (allCount) allCount.textContent = tasks.length;
+  weeks.forEach((w, i) => {
+    const el = document.getElementById(`cnt-w${i+1}`);
+    if (el) el.textContent = tasks.filter(t => t.week === w).length;
+  });
+}
+
+// ============ CONFIGS ============
+const weekColors = {
+  'Week 0': '#ff7c5c',
+  'Week 1': '#ffc85c',
+  'Week 2': '#5cffb8',
+  'Week 3': '#5cc8ff',
+  'Week 4': '#b85cff',
+  'Week 5': '#ff5cad',
+  'Week 6': '#5cffff',
+  'Week 7': '#ffff5c'
+};
+const deptColors = {
+  'Course': '#4f7fff',
+  'Product': '#7c5cfc',
+  'Community': '#00d4aa',
+  'SA': '#ff7c5c',
+  'Course Dept': '#4f7fff',
+  'Product Dept': '#7c5cfc'
+};
+const linkIcons = { 'canva': '🎨', 'docs.google': '📄', 'zoom': '🎥', 'portal': '🔐', 'default': '🔗' };
+const dayEmojis = { 'Monday':'Mon','Tuesday':'Tue','Wednesday':'Wed','Thursday':'Thu','Friday':'Fri','Saturday':'Sat','Sunday':'Sun' };
+
+let currentWeek = 'all';
+let currentDept = 'all';
+let expandedCards = new Set();
+let currentTab = 'schedule';
+
+// ============ HELPERS ============
+function getLinkIcon(url) {
+  if (!url) return '🔗';
+  if (url.includes('canva')) return '🎨';
+  if (url.includes('docs.google') || url.includes('forms')) return '📄';
+  if (url.includes('zoom')) return '🎥';
+  if (url.includes('portal')) return '🔐';
+  return '🔗';
+}
+
+function getLinkColor(url) {
+  if (!url) return '#4f7fff';
+  if (url.includes('canva')) return '#ff6b6b';
+  if (url.includes('docs.google') || url.includes('forms')) return '#4285f4';
+  if (url.includes('zoom')) return '#2d8cff';
+  if (url.includes('portal')) return '#00d4aa';
+  return '#4f7fff';
+}
+
+function parseLinks(str) {
+  if (!str) return [];
+  const lines = str.split('\n').map(s => s.trim()).filter(Boolean);
+  const result = [];
+  let currentName = '';
+  for (const line of lines) {
+    if (line.startsWith('http')) {
+      result.push({ name: currentName || line, url: line });
+      currentName = '';
+    } else {
+      if (currentName) result.push({ name: currentName, url: '' });
+      currentName = line;
+    }
+  }
+  if (currentName) result.push({ name: currentName, url: '' });
+  return result;
+}
+
+function getDeptTag(dept) {
+  if (!dept) return '';
+  const d = dept.replace(' Dept', '');
+  const color = deptColors[dept] || deptColors[d] || '#6e7fa8';
+  return `<span class="dept-tag" style="background:${color}22;color:${color};border:1px solid ${color}44">${dept}</span>`;
+}
+
+function getWeekColor(week) { return weekColors[week] || '#4f7fff'; }
+
+// ============ RENDER SCHEDULE ============
+function renderSchedule(filtered) {
+  const container = document.getElementById('scheduleContent');
+  if (!filtered.length) {
+    container.innerHTML = `<div class="empty-state"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><div>Tidak ada File</div></div>`;
+    return;
+  }
+
+  // Group by week
+  const grouped = {};
+  filtered.forEach(t => {
+    if (!grouped[t.week]) grouped[t.week] = [];
+    grouped[t.week].push(t);
+  });
+
+  const weeks = ['Week 1','Week 2','Week 3','Week 4','Week 5','Week 6','Week 7'];
+  let html = '';
+
+  for (const week of weeks) {
+    if (!grouped[week]) continue;
+    const color = getWeekColor(week);
+    html += `<div class="week-section" id="section-${week.replace(' ','')}">
+      <div class="week-header">
+        <span class="week-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${week}</span>
+        <span class="week-title">${week === 'Week 0' ? 'Preparation' : week === 'Week 7' ? 'Graduation' : `Course ${week.split(' ')[1]}`}</span>
+        <span class="week-line"></span>
+        <span style="font-size:12px;color:var(--text-dim);font-family:'Syne',sans-serif">${grouped[week].length} file</span>
+      </div>
+      <div class="task-grid">`;
+
+    grouped[week].forEach(task => {
+      const links = parseLinks(task.useful_links);
+      const hasLinks = links.length > 0;
+      const hasUpdates = task.product_updates || task.other_dept_updates;
+      const isExpanded = expandedCards.has(task.no);
+
+      html += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${task.no}" onclick="toggleCard('${task.no}')">
+        <div class="card-top">
+          <span class="task-num">#${task.no}</span>
+          <span class="task-content">${task.content}</span>
+        </div>
+        <div class="card-meta">
+          <span class="day-tag">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            ${task.day}
+          </span>
+          ${task.time ? `<span class="time-tag"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${task.time}</span>` : ''}
+          ${task.department ? getDeptTag(task.department) : ''}
+          ${hasLinks ? `<span class="has-links-badge">🔗 Links</span>` : ''}
+          ${hasUpdates ? `<span class="has-updates-badge">📢 Updates</span>` : ''}
+        </div>
+
+        <div class="card-detail">
+          ${task.reference ? `<div class="detail-section">
+            <div class="detail-label">Reference</div>
+            ${task.reference.startsWith('http') ?
+              `<a href="${task.reference}" target="_blank" class="ref-chip">
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                ${task.reference}</a>` :
+              `<span class="ref-chip">📎 ${task.reference}</span>`}
+          </div>` : ''}
+
+          ${task.recording ? `<div class="detail-section">
+            <div class="detail-label">Recording / Material</div>
+            <a href="${task.recording}" target="_blank" class="recording-btn">
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Open Recording
+            </a>
+          </div>` : ''}
+
+          ${task.pic ? `<div class="detail-section">
+            <div class="detail-label">PIC</div>
+            <div class="detail-value">${getDeptTag(task.pic)}</div>
+          </div>` : ''}
+
+          ${hasLinks ? `<div class="detail-section">
+            <div class="detail-label">Useful Links</div>
+            ${links.map(l => l.url ?
+              `<a href="${l.url}" target="_blank" class="link-item">
+                <div class="link-icon" style="background:${getLinkColor(l.url)}22">${getLinkIcon(l.url)}</div>
+                <div class="link-text">
+                  <span class="link-name">${l.name}</span>
+                  <span class="link-url">${l.url}</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>` :
+              `<div class="link-item" style="cursor:default">
+                <div class="link-icon" style="background:rgba(79,127,255,0.1)">📌</div>
+                <div class="link-text"><span class="link-name">${l.name}</span></div>
+              </div>`
+            ).join('')}
+          </div>` : ''}
+
+          ${task.product_updates ? `<div class="detail-section">
+            <div class="detail-label">Updates from Product Team</div>
+            <div class="update-item">
+              <span class="update-dot" style="background:#7c5cfc"></span>
+              <span>${task.product_updates}</span>
+            </div>
+          </div>` : ''}
+
+          ${task.other_dept_updates ? `<div class="detail-section">
+            <div class="detail-label">Updates from Other Dept</div>
+            <div class="update-item">
+              <span class="update-dot" style="background:#00d4aa"></span>
+              <span>${task.other_dept_updates}</span>
+            </div>
+          </div>` : ''}
+        </div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// ============ RENDER LINKS TAB ============
+function renderLinks() {
+  const container = document.getElementById('linksContent');
+  const allLinks = [];
+
+  tasks.forEach(task => {
+    const links = parseLinks(task.useful_links);
+    links.forEach(l => {
+      if (!allLinks.find(x => x.name === l.name)) {
+        allLinks.push({ ...l, taskNo: task.no, taskContent: task.content, week: task.week });
+      }
+    });
+  });
+
+  const withUrl = allLinks.filter(l => l.url);
+  const withoutUrl = allLinks.filter(l => !l.url);
+
+  let html = `<div class="links-section-title">Direct Links (${withUrl.length})</div>`;
+  html += `<div class="links-grid">`;
+  withUrl.forEach(l => {
+    html += `<a href="${l.url}" target="_blank" class="link-card">
+      <div class="link-card-icon" style="background:${getLinkColor(l.url)}22;font-size:20px">${getLinkIcon(l.url)}</div>
+      <div class="link-card-body">
+        <span class="link-card-name">${l.name}</span>
+        <span class="link-card-src">${l.url}</span>
+      </div>
+      <svg class="link-card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>`;
+  });
+  html += `</div>`;
+
+  if (withoutUrl.length) {
+    html += `<div class="links-section-title">Documents & Resources (${withoutUrl.length})</div>`;
+    html += `<div class="links-grid">`;
+    withoutUrl.forEach(l => {
+      html += `<div class="link-card" style="cursor:default;opacity:0.7">
+        <div class="link-card-icon" style="background:rgba(110,127,168,0.12);font-size:20px">📌</div>
+        <div class="link-card-body">
+          <span class="link-card-name">${l.name}</span>
+          <span class="link-card-src">Task #${l.taskNo} — ${l.week}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// ============ RENDER UPDATES ============
+function renderUpdates() {
+  const prodContainer = document.getElementById('productUpdatesContent');
+  const otherContainer = document.getElementById('otherUpdatesContent');
+
+  const prodUpdates = tasks.filter(t => t.product_updates);
+  const otherUpdates = tasks.filter(t => t.other_dept_updates);
+
+  let prodHtml = '';
+  prodUpdates.forEach(t => {
+    prodHtml += `<div class="update-row">
+      <div class="update-row-num">${t.no}</div>
+      <div class="update-row-body">
+        <div class="update-row-task">${t.week} · ${t.day}</div>
+        <div class="update-row-value">${t.product_updates}</div>
+        <div class="update-row-week">${t.content}</div>
+      </div>
+    </div>`;
+  });
+  prodContainer.innerHTML = prodHtml || `<div class="empty-state" style="padding:30px">Tidak ada update dari Product Team</div>`;
+
+  let otherHtml = '';
+  otherUpdates.forEach(t => {
+    otherHtml += `<div class="update-row">
+      <div class="update-row-num">${t.no}</div>
+      <div class="update-row-body">
+        <div class="update-row-task">${t.week} · ${t.day}</div>
+        <div class="update-row-value">${t.other_dept_updates}</div>
+        <div class="update-row-week">${t.content}</div>
+      </div>
+    </div>`;
+  });
+  otherContainer.innerHTML = otherHtml || `<div class="empty-state" style="padding:30px">Tidak ada update dari dept lain</div>`;
+}
+
+// ============ RENDER CHANGELOG ============
+function renderChangelog() {
+  const container = document.getElementById('changelogContent');
+  const withLog = tasks.filter(t => t.changes_log || t.date);
+
+  let html = '';
+  withLog.forEach(t => {
+    html += `<div class="changelog-item">
+      <div class="changelog-date">${t.date || '—'}</div>
+      <div class="changelog-dot"></div>
+      <div class="changelog-body">
+        <div class="changelog-task">Task #${t.no} — ${t.week}</div>
+        <div class="changelog-change">${t.changes_log || t.content}</div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html || `<div class="empty-state">Tidak ada perubahan yang dicatat</div>`;
+}
+
+// ============ INTERACTIONS ============
+function toggleCard(no) {
+  if (expandedCards.has(no)) expandedCards.delete(no);
+  else expandedCards.add(no);
+  applyFilters();
+}
+
+function filterWeek(week) {
+  currentWeek = week;
+  document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + (week === 'all' ? 'all' : 'w' + week.replace('Week ',''))).classList.add('active');
+  applyFilters();
+}
+
+function filterDept(dept) {
+  currentDept = dept;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('dept-' + dept.toLowerCase().replace(' ','')).classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  let filtered = tasks.filter(t => {
+    const matchWeek = currentWeek === 'all' || t.week === currentWeek;
+    const matchDept = currentDept === 'all' ||
+      t.department === currentDept ||
+      t.pic === currentDept ||
+      t.pic === currentDept + ' Dept' ||
+      t.department === currentDept + ' Dept';
+    const matchSearch = !search || t.content.toLowerCase().includes(search) ||
+      t.department.toLowerCase().includes(search) ||
+      t.when.toLowerCase().includes(search) ||
+      t.useful_links.toLowerCase().includes(search);
+    return matchWeek && matchDept && matchSearch;
+  });
+  renderSchedule(filtered);
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn')[['schedule','links','updates','changelog'].indexOf(tab)].classList.add('active');
+  document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
+  document.getElementById('tab-' + tab).classList.remove('hidden');
+  document.getElementById('searchBar').style.display = tab === 'schedule' ? '' : 'none';
+}
+
+// ============ INIT ============
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+// Validasi apakah SHEET_ID sudah diisi
+if (SHEET_ID === '1pbBzM6vtocrwb0DdesVToPJ_L8coOiCCc-mAC_Tmnd4') {
+  document.getElementById('scheduleContent').innerHTML = `
+    <div class="empty-state">
+      <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <div style="color:var(--accent);font-weight:600;margin-top:8px">Setup diperlukan</div>
+      <div style="font-size:12px;margin-top:6px">Buka file HTML ini, cari <code style="background:var(--surface2);padding:2px 6px;border-radius:4px">SHEET_ID</code> dan ganti dengan ID Google Sheet Anda.</div>
+    </div>`;
+} else {
+  loadData();
+}
+</script>
+</body>
+</html>
