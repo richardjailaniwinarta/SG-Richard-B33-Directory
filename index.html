@@ -763,18 +763,17 @@
 </header>
 
 <div class="app">
-  <!-- SIDEBAR -->
   <aside>
     <div class="sidebar-section">
       <div class="sidebar-label">Filter by Week</div>
       <button class="week-btn active" onclick="filterWeek('all')" id="btn-all">
         <span class="week-dot" style="background:#4f7fff"></span>
         All Weeks
-        <span class="week-count" id="cnt-all">2</span>
-      <button class="week-btn" onclick="filterWeek('Week 1')" id="btn-w1">
+        <span class="week-count" id="cnt-all">0</span>
+      </button> <button class="week-btn" onclick="filterWeek('Week 1')" id="btn-w1">
         <span class="week-dot" style="background:var(--week1)"></span>
         Week 1
-        <span class="week-count" id="cnt-w1">2</span>
+        <span class="week-count" id="cnt-w1">0</span>
       </button>
       <button class="week-btn" onclick="filterWeek('Week 2')" id="btn-w2">
         <span class="week-dot" style="background:var(--week2)"></span>
@@ -783,7 +782,7 @@
       </button>
       <button class="week-btn" onclick="filterWeek('Week 3')" id="btn-w3">
         <span class="week-dot" style="background:var(--week3)"></span>
-        Week 3
+        Week 4
         <span class="week-count" id="cnt-w3">0</span>
       </button>
       <button class="week-btn" onclick="filterWeek('Week 4')" id="btn-w4">
@@ -804,7 +803,6 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="tab-area">
     <div class="tab-bar">
       <button class="tab-btn active" onclick="switchTab('schedule')">📋 Home</button>
@@ -818,17 +816,14 @@
       </div>
     </div>
 
-    <!-- TAB: SCHEDULE -->
     <div class="content" id="tab-schedule">
       <div id="scheduleContent"></div>
     </div>
 
-    <!-- TAB: USEFUL LINKS -->
     <div class="content hidden" id="tab-links">
       <div id="linksContent"></div>
     </div>
 
-    <!-- TAB: UPDATES -->
     <div class="content hidden" id="tab-updates">
       <div class="updates-layout">
         <div class="updates-panel">
@@ -852,7 +847,6 @@
       </div>
     </div>
 
-    <!-- TAB: CHANGELOG -->
     <div class="content hidden" id="tab-changelog">
       <div class="changelog-list" id="changelogContent"></div>
     </div>
@@ -861,12 +855,8 @@
 
 <script>
 // ============ GOOGLE SHEETS CONFIG ============
-// Ganti SHEET_ID di bawah dengan ID Google Sheet Anda
-// Cara dapat ID: buka Google Sheet → lihat URL → salin bagian antara /d/ dan /edit
-// Contoh URL: https://docs.google.com/spreadsheets/d/1aBcDeFgHiJkLmNoPqRsTuVwXyZ/edit
-//                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ini ID-nya
 const SHEET_ID = '1pbBzM6vtocrwb0DdesVToPJ_L8coOiCCc-mAC_Tmnd4';
-const SHEET_NAME = 'Sheet2'; // Ganti jika nama sheet berbeda
+const SHEET_NAME = 'Sheet2'; 
 
 // URL untuk fetch data dari Google Sheets (CSV format)
 const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
@@ -896,7 +886,7 @@ async function loadData() {
         </svg>
         <div style="color:#ff7c5c;font-weight:600;margin-top:8px">Gagal memuat data</div>
         <div style="font-size:12px;margin-top:6px;max-width:400px">
-          Pastikan SHEET_ID sudah diisi dengan benar dan Google Sheet sudah dipublish.<br>
+          Pastikan Google Sheet sudah dipublish ke web.<br>
           <a href="#" onclick="loadData()" style="color:var(--accent);text-decoration:none">🔄 Coba lagi</a>
         </div>
       </div>`;
@@ -909,7 +899,7 @@ function parseCSV(csv) {
   const lines = csv.trim().split('\n');
   if (lines.length < 2) return [];
 
-  // Parse header row (baris pertama = nama kolom)
+  // Parse header row
   const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
 
   const result = [];
@@ -920,28 +910,68 @@ function parseCSV(csv) {
     headers.forEach((h, idx) => {
       row[h] = (values[idx] || '').trim();
     });
-    // Pastikan field yang dibutuhkan ada
     if (row.no || row.content) result.push(row);
   }
   return result;
 }
 
-function parseCSVLine(line) {
+// ============ PARSE CSV (FIXED FOR MULTILINE CELLS) ============
+function parseCSV(csv) {
   const result = [];
-  let cur = '', inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
+  let currentRow = [];
+  let currentCell = '';
+  let inQuotes = false;
+  
+  // Menggunakan perulangan karakter agar enter di dalam kutip tidak memotong baris data
+  for (let i = 0; i < csv.length; i++) {
+    const ch = csv[i];
+    const nextCh = csv[i + 1];
+    
     if (ch === '"') {
-      if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
-      else inQuotes = !inQuotes;
+      if (inQuotes && nextCh === '"') {
+        currentCell += '"';
+        i++; // Lewati kutip ganda kedua
+      } else {
+        inQuotes = !inQuotes; // Masuk atau keluar dari mode kutip
+      }
     } else if (ch === ',' && !inQuotes) {
-      result.push(cur); cur = '';
+      currentRow.push(currentCell.trim());
+      currentCell = '';
+    } else if ((ch === '\r' || ch === '\n') && !inQuotes) {
+      if (ch === '\r' && nextCh === '\n') i++; // Tangani sistem Windows (\r\n)
+      currentRow.push(currentCell.trim());
+      if (currentRow.some(v => v !== '')) {
+        result.push(currentRow);
+      }
+      currentRow = [];
+      currentCell = '';
     } else {
-      cur += ch;
+      currentCell += ch;
     }
   }
-  result.push(cur);
-  return result;
+  
+  // Masukkan baris terakhir jika tersisa
+  if (currentCell !== '' || currentRow.length > 0) {
+    currentRow.push(currentCell.trim());
+    if (currentRow.some(v => v !== '')) result.push(currentRow);
+  }
+
+  if (result.length < 2) return [];
+
+  // Ambil baris pertama sebagai nama kolom (headers)
+  const headers = result[0].map(h => h.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''));
+  
+  const finalTasks = [];
+  for (let i = 1; i < result.length; i++) {
+    const values = result[i];
+    const row = {};
+    headers.forEach((h, idx) => {
+      row[h] = (values[idx] || '').trim();
+    });
+    if (row.no || row.content) finalTasks.push(row);
+  }
+  
+  return finalTasks;
 }
 
 function renderAll() {
@@ -1043,7 +1073,6 @@ function renderSchedule(filtered) {
     return;
   }
 
-  // Group by week
   const grouped = {};
   filtered.forEach(t => {
     if (!grouped[t.week]) grouped[t.week] = [];
@@ -1059,7 +1088,7 @@ function renderSchedule(filtered) {
     html += `<div class="week-section" id="section-${week.replace(' ','')}">
       <div class="week-header">
         <span class="week-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${week}</span>
-        <span class="week-title">${week === 'Week 0' ? 'Preparation' : week === 'Week 7' ? 'Graduation' : `Course ${week.split(' ')[1]}`}</span>
+        <span class="week-title">${week === 'Week 0' ? 'Preparation' : week === 'Week 7' ? 'Graduation' : `${week.split(' ')[1]}`}</span>
         <span class="week-line"></span>
         <span style="font-size:12px;color:var(--text-dim);font-family:'Syne',sans-serif">${grouped[week].length} file</span>
       </div>
@@ -1277,6 +1306,7 @@ function filterDept(dept) {
   applyFilters();
 }
 
+// Perbaikan minor pada logika applyFilters agar tidak crash jika ada kolom spreadsheet yang kosong/null
 function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   let filtered = tasks.filter(t => {
@@ -1286,10 +1316,17 @@ function applyFilters() {
       t.pic === currentDept ||
       t.pic === currentDept + ' Dept' ||
       t.department === currentDept + ' Dept';
-    const matchSearch = !search || t.content.toLowerCase().includes(search) ||
-      t.department.toLowerCase().includes(search) ||
-      t.when.toLowerCase().includes(search) ||
-      t.useful_links.toLowerCase().includes(search);
+    
+    const contentText = t.content ? t.content.toLowerCase() : '';
+    const deptText = t.department ? t.department.toLowerCase() : '';
+    const whenText = t.when ? t.when.toLowerCase() : '';
+    const linksText = t.useful_links ? t.useful_links.toLowerCase() : '';
+
+    const matchSearch = !search || 
+      contentText.includes(search) ||
+      deptText.includes(search) ||
+      whenText.includes(search) ||
+      linksText.includes(search);
     return matchWeek && matchDept && matchSearch;
   });
   renderSchedule(filtered);
@@ -1307,19 +1344,8 @@ function switchTab(tab) {
 // ============ INIT ============
 document.getElementById('searchInput').addEventListener('input', applyFilters);
 
-// Validasi apakah SHEET_ID sudah diisi
-if (SHEET_ID === '1pbBzM6vtocrwb0DdesVToPJ_L8coOiCCc-mAC_Tmnd4') {
-  document.getElementById('scheduleContent').innerHTML = `
-    <div class="empty-state">
-      <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-      <div style="color:var(--accent);font-weight:600;margin-top:8px">Setup diperlukan</div>
-      <div style="font-size:12px;margin-top:6px">Buka file HTML ini, cari <code style="background:var(--surface2);padding:2px 6px;border-radius:4px">SHEET_ID</code> dan ganti dengan ID Google Sheet Anda.</div>
-    </div>`;
-} else {
-  loadData();
-}
+// VALIDASI SUDAH DIHAPUS - Langsung memproses data dari Google Sheets Anda
+loadData();
 </script>
 </body>
 </html>
